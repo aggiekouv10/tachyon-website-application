@@ -146,7 +146,7 @@ export function Pricing() {
           <Plan
             name="All Inclusive"
             price="$349.99"
-            description="For even the biggest enterprise companies."
+            description="High speeds for anything in high demand."
             href="https://discord.gg/TcbfJHhfJ3"
             features={[
               'Contains all monitors you would ever need',

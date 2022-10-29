@@ -77,11 +77,8 @@ function MobileNavigation() {
             as="div"
             className="absolute inset-x-0 top-full mt-4 flex origin-top flex-col rounded-2xl bg-white p-4 text-lg tracking-tight text-slate-900 shadow-xl ring-1 ring-slate-900/5"
           >
-            <MobileNavLink href="#hero">Home</MobileNavLink>
-            <MobileNavLink href="#testimonials">Testimonials</MobileNavLink>
-            <MobileNavLink href="#pricing">Pricing</MobileNavLink>
             <hr className="m-2 border-slate-300/40" />
-            <MobileNavLink href="/api/oauth">Sign in</MobileNavLink>
+            <MobileNavLink href="/api/logout">Log out</MobileNavLink>
           </Popover.Panel>
         </Transition.Child>
       </Transition.Root>
@@ -89,30 +86,36 @@ function MobileNavigation() {
   )
 }
 
-export function Header() {
+export function DashHeader({ user }) {
   return (
     <header className="bg-slate-900 py-10">
       <Container>
         <nav className="relative z-50 flex justify-between">
-          <div className="flex items-center md:gap-x-12">
+          <div className="flex items-center ">
             <Link href="#" aria-label="Home">
-              <Logo className="h-14 w-auto" />
+              <Logo className="mr-12 h-14 w-auto" />
             </Link>
-            <div className="hidden md:flex md:gap-x-6">
-              <NavLink className="text-white" href="#hero">Home</NavLink>
-              <NavLink className="text-white" href="#testimonials">Testimonials</NavLink>
-              <NavLink className="text-white" href="#pricing">Pricing</NavLink>
-            </div>
+            <div className="hidden md:flex md:gap-x-6"></div>
           </div>
+
           <div className="flex items-center gap-x-5 md:gap-x-8">
-            <div className="hidden md:block">
-              <NavLink className="text-white" href="/api/oauth">Sign in</NavLink>
+            <div className="flex flex-col items-center justify-center md:block">
+              <div className="flex items-center gap-4">
+                <img
+                  className="h-8 w-8 rounded-full"
+                  src={`https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}`}
+                ></img>
+                <p className="text-sm text-white">
+                  {user.username}#{user.discriminator}
+                </p>
+              </div>
+              <NavLink
+                href="/api/logout"
+                className="w-full text-center text-red-600 hover:bg-red-600 hover:text-red-100"
+              >
+                Sign out
+              </NavLink>
             </div>
-            <Button href="https://discord.gg/TcbfJHhfJ3" color="blue">
-              <span>
-                Get started <span className="hidden lg:inline">today</span>
-              </span>
-            </Button>
             <div className="-mr-1 md:hidden">
               <MobileNavigation />
             </div>

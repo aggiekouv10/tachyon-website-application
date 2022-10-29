@@ -21,7 +21,7 @@ export function Footer() {
         <div className="py-16">
           <Logo className="mx-auto h-16 w-auto" />
           <nav className="mt-10 text-sm" aria-label="quick links">
-            <div className="-my-1 flex justify-center gap-x-6 text-slate-100">
+            <div className="-my-1 flex justify-center gap-x-6 text-slate-100 ">
               <NavLink className="text-slate-100" href="#hero">Home</NavLink>
               <NavLink href="#testimonials">Testimonials</NavLink>
               <NavLink href="#pricing">Pricing</NavLink>

@@ -113,7 +113,7 @@ function Feature({ feature, isActive, className, ...props }) {
       <h3
         className={clsx(
           'mt-6 text-sm font-medium',
-          isActive ? 'text-blue-600' : 'text-slate-600'
+          isActive ? 'text-[#53b3e9]' : 'text-slate-600'
         )}
       >
         {feature.name}

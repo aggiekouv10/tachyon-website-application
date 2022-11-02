@@ -9,6 +9,7 @@ import { Pricing } from '@/components/Pricing'
 import { PrimaryFeatures } from '@/components/PrimaryFeatures'
 import { SecondaryFeatures } from '@/components/SecondaryFeatures'
 import { Testimonials } from '@/components/Testimonials'
+import { SiteList, SiteLIST } from '@/components/SiteList'
 
 export default function Home() {
   return (
@@ -24,10 +25,11 @@ export default function Home() {
       <Header />
       <main className="bg-slate-900">
         <Hero />
+        <Pricing />
+        <SiteList></SiteList>
         <SecondaryFeatures />
         <CallToAction />
         <Testimonials />
-        <Pricing />
         <Faqs />
       </main>
       <Footer />

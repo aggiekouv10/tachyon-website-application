@@ -14,7 +14,7 @@ export function Hero() {
     <Container id="hero" className="pt-20 pb-16 text-center lg:pt-32">
       <h1 className="mx-auto max-w-4xl font-display text-5xl font-medium tracking-tight text-slate-100 sm:text-7xl">
         Monitoring{' '}
-        <span className="relative whitespace-nowrap text-blue-600">
+        <span className="relative whitespace-nowrap text-[#53b3e9]">
           <svg
             aria-hidden="true"
             viewBox="0 0 418 42"
@@ -38,32 +38,6 @@ export function Hero() {
         >
           Reach out to us now
         </Button>
-      </div>
-      <div class="mt-24 grid grid-cols-4 gap-4">
-        <div>
-          <img src="/1.png"></img>
-        </div>
-        <div>
-          <img src="/2.png"></img>
-        </div>
-        <div>
-          <img src="/3.png"></img>
-        </div>
-        <div>
-          <img src="/4.png"></img>
-        </div>{' '}
-        <div>
-          <img src="/5.png"></img>
-        </div>
-        <div>
-          <img src="/6.png"></img>
-        </div>
-        <div>
-          <img src="/7.png"></img>
-        </div>
-        <div>
-          <img src="/8.png"></img>
-        </div>
       </div>
     </Container>
   )

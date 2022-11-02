@@ -78,8 +78,9 @@ function MobileNavigation() {
             className="absolute inset-x-0 top-full mt-4 flex origin-top flex-col rounded-2xl bg-white p-4 text-lg tracking-tight text-slate-900 shadow-xl ring-1 ring-slate-900/5"
           >
             <MobileNavLink href="#hero">Home</MobileNavLink>
-            <MobileNavLink href="#testimonials">Testimonials</MobileNavLink>
             <MobileNavLink href="#pricing">Pricing</MobileNavLink>
+            <MobileNavLink href="#sitelist">Site</MobileNavLink>
+            <MobileNavLink href="#testimonials">Testimonials</MobileNavLink>
             <hr className="m-2 border-slate-300/40" />
             <MobileNavLink href="/api/oauth">Sign in</MobileNavLink>
           </Popover.Panel>
@@ -102,11 +103,14 @@ export function Header() {
               <NavLink className="text-white" href="#hero">
                 Home
               </NavLink>
-              <NavLink className="text-white" href="#testimonials">
-                Testimonials
-              </NavLink>
               <NavLink className="text-white" href="#pricing">
                 Pricing
+              </NavLink>
+              <NavLink className="text-white" href="#sitelist">
+                Sitelist
+              </NavLink>
+              <NavLink className="text-white" href="#testimonials">
+                Testimonials
               </NavLink>
             </div>
           </div>

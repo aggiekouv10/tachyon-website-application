@@ -33,11 +33,37 @@ export function Hero() {
       </p>
       <div className="mt-10 flex justify-center gap-x-6">
         <Button
-          className="bg-slate-600 border text-white"
+          className="border bg-slate-600 text-white"
           href="https://discord.gg/TcbfJHhfJ3"
         >
           Reach out to us now
         </Button>
+      </div>
+      <div class="mt-24 grid grid-cols-4 gap-4">
+        <div>
+          <img src="/1.png"></img>
+        </div>
+        <div>
+          <img src="/2.png"></img>
+        </div>
+        <div>
+          <img src="/3.png"></img>
+        </div>
+        <div>
+          <img src="/4.png"></img>
+        </div>{' '}
+        <div>
+          <img src="/5.png"></img>
+        </div>
+        <div>
+          <img src="/6.png"></img>
+        </div>
+        <div>
+          <img src="/7.png"></img>
+        </div>
+        <div>
+          <img src="/8.png"></img>
+        </div>
       </div>
     </Container>
   )

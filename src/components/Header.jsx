@@ -99,14 +99,22 @@ export function Header() {
               <Logo className="h-14 w-auto" />
             </Link>
             <div className="hidden md:flex md:gap-x-6">
-              <NavLink className="text-white" href="#hero">Home</NavLink>
-              <NavLink className="text-white" href="#testimonials">Testimonials</NavLink>
-              <NavLink className="text-white" href="#pricing">Pricing</NavLink>
+              <NavLink className="text-white" href="#hero">
+                Home
+              </NavLink>
+              <NavLink className="text-white" href="#testimonials">
+                Testimonials
+              </NavLink>
+              <NavLink className="text-white" href="#pricing">
+                Pricing
+              </NavLink>
             </div>
           </div>
           <div className="flex items-center gap-x-5 md:gap-x-8">
             <div className="hidden md:block">
-              <NavLink className="text-white" href="/api/oauth">Sign in</NavLink>
+              <NavLink className="text-white" href="/api/oauth">
+                Sign in
+              </NavLink>
             </div>
             <Button href="https://discord.gg/TcbfJHhfJ3" color="blue">
               <span>

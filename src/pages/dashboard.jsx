@@ -20,7 +20,7 @@ function Dashboard({ user }) {
       </Head>
       <DashHeader user={user}></DashHeader>
       <main className="flex   bg-slate-900 px-2 pb-4 md:px-24">
-        <div class="flex h-auto w-full flex-wrap items-center justify-center gap-4">
+        <div className="flex h-auto w-full flex-wrap items-center justify-center gap-4">
           <WebhookSlot type={'Shopify EU'}></WebhookSlot>{' '}
           <WebhookSlot type={'Shopify US'}></WebhookSlot>{' '}
           <WebhookSlot type={'Shopify DE'}></WebhookSlot>{' '}

@@ -367,7 +367,7 @@ export default function Sidebar({ updateType }) {
                       Webhook Editor
                     </h3>
                   </div>
-                  <div className="mt-5 h-0 flex-1 overflow-y-auto">
+                  <div className="mt-5 h-0 flex-1 overflow-y-auto scrollbar-hide">
                     <nav className="select-none space-y-1 px-2">
                       {navigation.map((item) => (
                         <div>
@@ -486,7 +486,7 @@ export default function Sidebar({ updateType }) {
         <div className="hidden md:fixed md:inset-y-0 md:flex md:w-64 md:flex-col">
           {/* Sidebar component, swap this element with another sidebar if you like */}
           <div className="flex min-h-0 flex-1 flex-col bg-slate-800">
-            <div className="mt-8 flex flex-1 flex-col overflow-y-auto">
+            <div className="mt-8 flex flex-1 flex-col overflow-y-auto scrollbar-hide">
               <h3 className="mx-auto flex select-none items-center justify-center gap-2 rounded-lg bg-slate-900 p-4 text-lg font-medium leading-6 text-white">
                 <InboxIcon className="h-6 w-6 text-slate-400"></InboxIcon>
                 Webhook Folders

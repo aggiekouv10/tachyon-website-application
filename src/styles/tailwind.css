@@ -22,3 +22,7 @@ html {
 ::-webkit-scrollbar-thumb {
   background-color: rgb(37 99 235);
 }
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}

@@ -88,7 +88,7 @@ function MobileNavigation() {
 
 export function DashHeader({ user }) {
   return (
-    <header className="bg-slate-900 py-10">
+    <header className="bg-slate-900 py-10 z-0">
       <Container>
         <nav className="relative z-50 flex justify-between">
           <div className="flex items-center ">

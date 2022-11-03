@@ -5,9 +5,17 @@ import { Hero } from '@/components/Hero'
 import WebhookSlot from '@/components/WebhookSlot'
 import { parseUser } from '@/utils/parse-user'
 import Head from 'next/head'
-import React from 'react'
+import React, { useState } from 'react'
+import dynamic from 'next/dynamic'
+import Sidebar from '@/components/Sidebar'
 
 function Dashboard({ user }) {
+  const [currentType, setType] = useState('Shopify')
+
+  const updateType = (type) => {
+    setType(type)
+  }
+
   return (
     <div className="h-auto min-h-screen bg-slate-900">
       <Head>
@@ -18,24 +26,14 @@ function Dashboard({ user }) {
         />
         <meta name="theme-color" content="#2563eb" />
       </Head>
-      <DashHeader user={user}></DashHeader>
-      <main className="flex   bg-slate-900 px-2 pb-4 md:px-24">
-        <div className="flex h-auto w-full flex-wrap items-center justify-center gap-4">
-          <WebhookSlot type={'Shopify EU'}></WebhookSlot>{' '}
-          <WebhookSlot type={'Shopify US'}></WebhookSlot>{' '}
-          <WebhookSlot type={'Shopify DE'}></WebhookSlot>{' '}
-          <WebhookSlot type={'Shopify NL'}></WebhookSlot>
-          <WebhookSlot type={'Shopify SE'}></WebhookSlot>
-          <WebhookSlot type={'Shopify PL'}></WebhookSlot>
-          <WebhookSlot type={'Solebox'}></WebhookSlot>
-          <WebhookSlot type={'Adidas EU'}></WebhookSlot>
-          <WebhookSlot type={'Adidas US'}></WebhookSlot>
-          <WebhookSlot type={'Yeezy,'}></WebhookSlot>
+
+      <main className="flex flex-col bg-slate-900">
+        <DashHeader user={user}></DashHeader>
+        <Sidebar updateType={updateType}></Sidebar>
+        <div className="flex w-full items-center justify-center">
+          {currentType && <WebhookSlot type={currentType}></WebhookSlot>}
         </div>
       </main>
-      <p className="mt-12 flex w-full items-center justify-center text-center font-bold text-blue-400">
-        With Love from Tachyon
-      </p>
     </div>
   )
 }

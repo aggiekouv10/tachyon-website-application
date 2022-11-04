@@ -128,7 +128,7 @@ export default function Sidebar({ updateType, currentType }) {
         'Ycmc',
         'Funko',
         'Packer',
-        'Other'
+        'Other',
       ],
       icon: FolderIcon,
       current: false,
@@ -291,10 +291,9 @@ export default function Sidebar({ updateType, currentType }) {
 
   const [enabledCategories, setEnabledCategories] = useState([])
 
-  const updateActiveCategories = (category) =>{
+  const updateActiveCategories = (category) => {
     const temp = [...enabledCategories]
-    if(temp.includes(category))
-      temp.splice(temp.indexOf(category), 1)
+    if (temp.includes(category)) temp.splice(temp.indexOf(category), 1)
     else temp.push(category)
     setEnabledCategories(temp)
   }
@@ -304,15 +303,14 @@ export default function Sidebar({ updateType, currentType }) {
     updateType(name)
   }
 
-
   const [settingsEnabled, enableSettings] = useState(true)
 
-  useEffect(()=>{
-    if(settingsEnabled) updateType("Settings")
+  useEffect(() => {
+    if (settingsEnabled) updateType('Settings')
   }, [settingsEnabled])
 
-  useEffect(()=>{
-    if(currentType != "Settings" ){
+  useEffect(() => {
+    if (currentType != 'Settings') {
       enableSettings(false)
     }
   }, [currentType])
@@ -321,13 +319,11 @@ export default function Sidebar({ updateType, currentType }) {
     let temp = [...navigation]
     for (let item of temp) {
       if (item.name == name) {
-        if (item.current){ 
+        if (item.current) {
           item.current = false
-          if(settingsEnabled)
-            updateType("Settings")
-          else updateType("")
-        }
-        else item.current = true
+          if (settingsEnabled) updateType('Settings')
+          else updateType('')
+        } else item.current = true
       } else {
         item.current = false
         setEnabledCategories([])
@@ -354,7 +350,7 @@ export default function Sidebar({ updateType, currentType }) {
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <div className="fixed inset-0 bg-slate-800 " />
+              <div className="fixed inset-0 bg-slate-700 bg-opacity-50 " />
             </Transition.Child>
 
             <div className="fixed inset-0 z-40 flex">
@@ -391,48 +387,103 @@ export default function Sidebar({ updateType, currentType }) {
                       </button>
                     </div>
                   </Transition.Child>
-                  <div className="flex flex-shrink-0 items-center px-4">
-                    <h3 className="text-lg font-medium leading-6 text-white">
-                      Webhook Editor
-                    </h3>
-                  </div>
-                  <div className="mt-5 h-0 flex-1 overflow-y-auto scrollbar-hide">
-                    <nav className="select-none space-y-1 px-2">
-                      {navigation.map((item) => (
-                        <div key={item.name}>
-                          <div
-                            onClick={() => updateCurrent(item.name)}
+                  <h3 className="mx-auto flex select-none items-center justify-center gap-2 rounded-lg bg-slate-900 p-4 text-lg font-medium leading-6 text-white">
+                    <InboxIcon className="h-6 w-6 text-slate-400"></InboxIcon>
+                    Webhook Folders
+                  </h3>
+                  <nav className="mt-4 flex-1 select-none space-y-1 px-2 py-4">
+                    <div
+                      onClick={() => enableSettings(!settingsEnabled)}
+                      className={classNames(
+                        currentType == 'Settings'
+                          ? 'bg-slate-900 text-white'
+                          : 'text-gray-300 hover:bg-slate-700 hover:text-white',
+                        'group mb-2 flex cursor-pointer items-center rounded-md px-2 py-2 text-sm font-medium transition-all'
+                      )}
+                    >
+                      <Cog8ToothIcon
+                        className={classNames(
+                          currentType == 'Settings'
+                            ? 'text-gray-300'
+                            : 'text-gray-400 group-hover:text-gray-300',
+                          'mr-4 h-5 w-5 flex-shrink-0'
+                        )}
+                      ></Cog8ToothIcon>
+                      Settings
+                    </div>
+                    <hr className="border border-slate-700"></hr>
+                    <div className="w-full pt-[0.1rem]"></div>
+                    {navigation.map((item) => (
+                      <div key={item.name}>
+                        <div
+                          onClick={() => updateCurrent(item.name)}
+                          className={classNames(
+                            item.current
+                              ? 'bg-slate-900 text-white'
+                              : 'text-gray-300 hover:bg-slate-700 hover:text-white',
+                            'group flex cursor-pointer items-center rounded-md px-2 py-2 text-sm font-medium transition-all'
+                          )}
+                        >
+                          <item.icon
                             className={classNames(
                               item.current
-                                ? 'bg-slate-900 text-white'
-                                : 'text-gray-300 hover:bg-slate-700 hover:text-white',
-                              'group flex cursor-pointer items-center rounded-md px-2 py-2 text-sm font-medium'
+                                ? 'text-gray-300'
+                                : 'text-gray-400 group-hover:text-gray-300',
+                              'mr-4 h-5 w-5 flex-shrink-0'
                             )}
-                          >
-                            <item.icon
-                              className={classNames(
-                                item.current
-                                  ? 'text-gray-300'
-                                  : 'text-gray-400 group-hover:text-gray-300',
-                                'mr-4 h-5 w-5 flex-shrink-0'
-                              )}
-                              aria-hidden="true"
-                            />
-                            {item.name}
-                          </div>
-                          {item.current && (
-                            <div className="flex flex-col">
-                              {item.categories.map((category) => {
-                                if (typeof category === 'string') {
+                            aria-hidden="true"
+                          />
+                          {item.name}
+                        </div>
+                        {item.current && (
+                          <div className="flex flex-col">
+                            {item.categories.map((category) => {
+                              if (typeof category === 'string') {
+                                return (
+                                  <div
+                                    onClick={() => {
+                                      toggleWebhook(`${item.name} ${category}`)
+                                    }}
+                                    key={category}
+                                    className={`${
+                                      currentType == `${item.name} ${category}`
+                                        ? 'bg-slate-700 hover:bg-slate-700'
+                                        : 'bg-transparent'
+                                    } group flex cursor-pointer items-center rounded-md px-2 py-2 pl-6 text-xs font-medium text-gray-300 transition-all hover:bg-slate-700 hover:text-white`}
+                                  >
+                                    <PaperClipIcon
+                                      className={classNames(
+                                        item.current
+                                          ? 'text-gray-300'
+                                          : 'text-gray-400 group-hover:text-gray-300',
+                                        'mr-4 h-4 w-4 flex-shrink-0'
+                                      )}
+                                      aria-hidden="true"
+                                    />
+                                    {category}
+                                  </div>
+                                )
+                              }
+                              if (typeof category === 'object') {
+                                const label = Object.keys(category)[0]
+                                const values = category[label]
+                                const isEnabled =
+                                  enabledCategories.includes(label)
+                                const data = values.map((value) => {
                                   return (
                                     <div
                                       onClick={() => {
                                         toggleWebhook(
-                                          `${item.name} ${category}`
+                                          `${item.name} ${label} ${value}`
                                         )
                                       }}
-                                      key={category}
-                                      className="group flex cursor-pointer items-center rounded-md px-2 py-2 pl-6  text-xs font-medium text-gray-300 hover:bg-slate-700 hover:text-white"
+                                      key={value}
+                                      className={`${
+                                        currentType ==
+                                        `${item.name} ${label} ${value}`
+                                          ? 'bg-slate-700 hover:bg-slate-700'
+                                          : 'bg-transparent'
+                                      } group flex cursor-pointer items-center rounded-md px-2 py-2 pl-12 text-xs font-medium  text-gray-300 transition-all transition-all hover:bg-slate-700 hover:text-white`}
                                     >
                                       <PaperClipIcon
                                         className={classNames(
@@ -443,65 +494,37 @@ export default function Sidebar({ updateType, currentType }) {
                                         )}
                                         aria-hidden="true"
                                       />
-                                      {category}
+                                      {value}
                                     </div>
                                   )
-                                }
-                                if (typeof category === 'object') {
-                                  const label = Object.keys(category)
-                                  const values = category[label]
-                                  const data = values.map((value) => {
-                                    return (
-                                      <div
-                                        onClick={() => {
-                                          toggleWebhook(
-                                            `${item.name} ${label} ${value}`
-                                          )
-                                        }}
-                                        key={value}
-                                        className="group flex cursor-pointer items-center rounded-md px-2 py-2 pl-12  text-xs font-medium text-gray-300 hover:bg-slate-700 hover:text-white"
-                                      >
-                                        <PaperClipIcon
-                                          className={classNames(
-                                            item.current
-                                              ? 'text-gray-300'
-                                              : 'text-gray-400 group-hover:text-gray-300',
-                                            'mr-4 h-4 w-4 flex-shrink-0'
-                                          )}
-                                          aria-hidden="true"
-                                        />
-                                        {value}
-                                      </div>
-                                    )
-                                  })
-                                  const isEnabled = enabledCategories.includes(label)
-                                  return (
-                                    <>
-                                      <div
-                                        key={label}
+                                })
+                                return (
+                                  <div>
+                                    <div
+                                      key={label}
+                                      onClick={() => {
+                                        updateActiveCategories(label)
+                                      }}
+                                      className={`group flex cursor-pointer items-center rounded-md px-2 py-2 pl-6 text-sm font-medium text-gray-300 hover:bg-slate-700 hover:text-white`}
+                                    >
+                                      <item.icon
                                         className={classNames(
-                                          'group flex cursor-pointer items-center rounded-md px-2 py-2 pl-6 text-sm font-medium text-gray-300 hover:bg-slate-700 hover:text-white'
+                                          'mr-4 h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-300'
                                         )}
-                                      >
-                                        <item.icon
-                                          className={classNames(
-                                            'mr-4 h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-300'
-                                          )}
-                                          aria-hidden="true"
-                                        />
-                                        {label}
-                                      </div>
-                                      {isEnabled && isdata}
-                                    </>
-                                  )
-                                }
-                              })}
-                            </div>
-                          )}
-                        </div>
-                      ))}
-                    </nav>
-                  </div>
+                                        aria-hidden="true"
+                                      />
+                                      {label}
+                                    </div>
+                                    {isEnabled && data}
+                                  </div>
+                                )
+                              }
+                            })}
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </nav>
                 </Dialog.Panel>
               </Transition.Child>
               <div className="w-14 flex-shrink-0" aria-hidden="true">
@@ -515,29 +538,33 @@ export default function Sidebar({ updateType, currentType }) {
         <div className="hidden md:fixed md:inset-y-0 md:flex md:w-64 md:flex-col">
           {/* Sidebar component, swap this element with another sidebar if you like */}
           <div className="flex min-h-0 flex-1 flex-col bg-slate-800">
-            <div className="mt-8 flex flex-1 flex-col overflow-y-auto scrollbar-hide">
+            <div className="scrollbar-hide mt-8 flex flex-1 flex-col overflow-y-auto">
               <h3 className="mx-auto flex select-none items-center justify-center gap-2 rounded-lg bg-slate-900 p-4 text-lg font-medium leading-6 text-white">
                 <InboxIcon className="h-6 w-6 text-slate-400"></InboxIcon>
                 Webhook Folders
               </h3>
               <nav className="mt-4 flex-1 select-none space-y-1 px-2 py-4">
-              <div
-                      onClick={() => enableSettings(!settingsEnabled)}
-                      className={classNames(
-                        currentType == "Settings"
-                          ? 'bg-slate-900 text-white'
-                          : 'text-gray-300 hover:bg-slate-700 hover:text-white',
-                        'group flex cursor-pointer items-center rounded-md px-2 py-2 text-sm font-medium transition-all'
-                      )}
-                    >
-                      <Cog8ToothIcon className={classNames(
-                          currentType == "Settings"
-                            ? 'text-gray-300'
-                            : 'text-gray-400 group-hover:text-gray-300',
-                          'mr-4 h-5 w-5 flex-shrink-0'
-                        )}></Cog8ToothIcon>
-                      Settings
-                    </div>
+                <div
+                  onClick={() => enableSettings(!settingsEnabled)}
+                  className={classNames(
+                    currentType == 'Settings'
+                      ? 'bg-slate-900 text-white'
+                      : 'text-gray-300 hover:bg-slate-700 hover:text-white',
+                    'group mb-2 flex cursor-pointer items-center rounded-md px-2 py-2 text-sm font-medium transition-all'
+                  )}
+                >
+                  <Cog8ToothIcon
+                    className={classNames(
+                      currentType == 'Settings'
+                        ? 'text-gray-300'
+                        : 'text-gray-400 group-hover:text-gray-300',
+                      'mr-4 h-5 w-5 flex-shrink-0'
+                    )}
+                  ></Cog8ToothIcon>
+                  Settings
+                </div>
+                <hr className="border border-slate-700"></hr>
+                <div className="w-full pt-[0.1rem]"></div>
                 {navigation.map((item) => (
                   <div key={item.name}>
                     <div
@@ -570,7 +597,11 @@ export default function Sidebar({ updateType, currentType }) {
                                   toggleWebhook(`${item.name} ${category}`)
                                 }}
                                 key={category}
-                                className={`${currentType == `${item.name} ${category}` ? "bg-slate-700 hover:bg-slate-700" : "bg-transparent"} group flex cursor-pointer items-center rounded-md px-2 py-2 pl-6 text-xs font-medium text-gray-300 transition-all hover:bg-slate-700 hover:text-white`}
+                                className={`${
+                                  currentType == `${item.name} ${category}`
+                                    ? 'bg-slate-700 hover:bg-slate-700'
+                                    : 'bg-transparent'
+                                } group flex cursor-pointer items-center rounded-md px-2 py-2 pl-6 text-xs font-medium text-gray-300 transition-all hover:bg-slate-700 hover:text-white`}
                               >
                                 <PaperClipIcon
                                   className={classNames(
@@ -598,7 +629,12 @@ export default function Sidebar({ updateType, currentType }) {
                                     )
                                   }}
                                   key={value}
-                                  className={`${currentType == `${item.name} ${label} ${value}` ? "bg-slate-700 hover:bg-slate-700" : "bg-transparent"} group flex cursor-pointer items-center rounded-md px-2 py-2 pl-12 text-xs font-medium  text-gray-300 transition-all transition-all hover:bg-slate-700 hover:text-white`}
+                                  className={`${
+                                    currentType ==
+                                    `${item.name} ${label} ${value}`
+                                      ? 'bg-slate-700 hover:bg-slate-700'
+                                      : 'bg-transparent'
+                                  } group flex cursor-pointer items-center rounded-md px-2 py-2 pl-12 text-xs font-medium  text-gray-300 transition-all transition-all hover:bg-slate-700 hover:text-white`}
                                 >
                                   <PaperClipIcon
                                     className={classNames(
@@ -617,10 +653,10 @@ export default function Sidebar({ updateType, currentType }) {
                               <div>
                                 <div
                                   key={label}
-                                  onClick={()=>{
+                                  onClick={() => {
                                     updateActiveCategories(label)
                                   }}
-                                  className={`group flex cursor-pointer items-center rounded-md px-2 py-2 pl-6 text-sm font-medium text-gray-300 hover:bg-slate-700 hover:text-white`}                                 
+                                  className={`group flex cursor-pointer items-center rounded-md px-2 py-2 pl-6 text-sm font-medium text-gray-300 hover:bg-slate-700 hover:text-white`}
                                 >
                                   <item.icon
                                     className={classNames(
@@ -644,7 +680,7 @@ export default function Sidebar({ updateType, currentType }) {
           </div>
         </div>
         <div className="flex flex-col md:pl-64">
-          <div className="sticky md:hidden top-0 z-10 flex h-16 w-max flex-shrink-0 bg-transparent shadow">
+          <div className="sticky top-0 z-10 flex h-16 w-max flex-shrink-0 bg-transparent shadow md:hidden">
             <button
               type="button"
               className="border-r border-gray-200 px-4 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 md:hidden"

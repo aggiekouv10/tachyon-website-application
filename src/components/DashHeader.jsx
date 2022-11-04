@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { Fragment } from 'react'
 import Link from 'next/link'
 import { Popover, Transition } from '@headlessui/react'
@@ -100,9 +101,10 @@ export function DashHeader({ user }) {
 
           <div className="flex items-center gap-x-5 md:gap-x-8">
             <div className="flex flex-col items-center justify-center md:block">
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2 gap-y-0">
                 <img
                   className="h-8 w-8 rounded-full"
+                  alt="avatar"
                   src={`https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}`}
                 ></img>
                 <p className="text-sm text-white">
@@ -111,7 +113,7 @@ export function DashHeader({ user }) {
               </div>
               <NavLink
                 href="/api/logout"
-                className="w-full text-center text-red-600 hover:bg-red-600 hover:text-red-100"
+                className="w-full py-0 px-0 text-center text-red-600 hover:bg-red-600 hover:text-red-100"
               >
                 Sign out
               </NavLink>

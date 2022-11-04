@@ -25,6 +25,7 @@ import {
   UsersIcon,
   XMarkIcon,
   PaperClipIcon,
+  Cog8ToothIcon,
 } from '@heroicons/react/24/outline'
 import { MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 
@@ -32,7 +33,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Sidebar({ updateType }) {
+export default function Sidebar({ updateType, currentType }) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   const [navigation, setNavigation] = useState([
@@ -68,7 +69,7 @@ export default function Sidebar({ updateType }) {
         'Champs',
         'Footaction',
       ],
-      current: true,
+      current: false,
     },
     {
       name: 'Reddit Deals',
@@ -127,6 +128,7 @@ export default function Sidebar({ updateType }) {
         'Ycmc',
         'Funko',
         'Packer',
+        'Other'
       ],
       icon: FolderIcon,
       current: false,
@@ -287,21 +289,48 @@ export default function Sidebar({ updateType }) {
     },
   ])
 
+  const [enabledCategories, setEnabledCategories] = useState([])
+
+  const updateActiveCategories = (category) =>{
+    const temp = [...enabledCategories]
+    if(temp.includes(category))
+      temp.splice(temp.indexOf(category), 1)
+    else temp.push(category)
+    setEnabledCategories(temp)
+  }
+
   const toggleWebhook = (name) => {
     console.log(name)
     updateType(name)
   }
 
+
+  const [settingsEnabled, enableSettings] = useState(true)
+
+  useEffect(()=>{
+    if(settingsEnabled) updateType("Settings")
+  }, [settingsEnabled])
+
+  useEffect(()=>{
+    if(currentType != "Settings" ){
+      enableSettings(false)
+    }
+  }, [currentType])
+
   const updateCurrent = (name) => {
     let temp = [...navigation]
-    console.log(temp)
     for (let item of temp) {
       if (item.name == name) {
-        console.log(item.current)
-        if (item.current) item.current = false
+        if (item.current){ 
+          item.current = false
+          if(settingsEnabled)
+            updateType("Settings")
+          else updateType("")
+        }
         else item.current = true
       } else {
         item.current = false
+        setEnabledCategories([])
       }
     }
     setNavigation(temp)
@@ -370,9 +399,8 @@ export default function Sidebar({ updateType }) {
                   <div className="mt-5 h-0 flex-1 overflow-y-auto scrollbar-hide">
                     <nav className="select-none space-y-1 px-2">
                       {navigation.map((item) => (
-                        <div>
+                        <div key={item.name}>
                           <div
-                            key={item.name}
                             onClick={() => updateCurrent(item.name)}
                             className={classNames(
                               item.current
@@ -446,6 +474,7 @@ export default function Sidebar({ updateType }) {
                                       </div>
                                     )
                                   })
+                                  const isEnabled = enabledCategories.includes(label)
                                   return (
                                     <>
                                       <div
@@ -462,7 +491,7 @@ export default function Sidebar({ updateType }) {
                                         />
                                         {label}
                                       </div>
-                                      {data}
+                                      {isEnabled && isdata}
                                     </>
                                   )
                                 }
@@ -492,10 +521,26 @@ export default function Sidebar({ updateType }) {
                 Webhook Folders
               </h3>
               <nav className="mt-4 flex-1 select-none space-y-1 px-2 py-4">
+              <div
+                      onClick={() => enableSettings(!settingsEnabled)}
+                      className={classNames(
+                        currentType == "Settings"
+                          ? 'bg-slate-900 text-white'
+                          : 'text-gray-300 hover:bg-slate-700 hover:text-white',
+                        'group flex cursor-pointer items-center rounded-md px-2 py-2 text-sm font-medium transition-all'
+                      )}
+                    >
+                      <Cog8ToothIcon className={classNames(
+                          currentType == "Settings"
+                            ? 'text-gray-300'
+                            : 'text-gray-400 group-hover:text-gray-300',
+                          'mr-4 h-5 w-5 flex-shrink-0'
+                        )}></Cog8ToothIcon>
+                      Settings
+                    </div>
                 {navigation.map((item) => (
-                  <div>
+                  <div key={item.name}>
                     <div
-                      key={item.name}
                       onClick={() => updateCurrent(item.name)}
                       className={classNames(
                         item.current
@@ -525,7 +570,7 @@ export default function Sidebar({ updateType }) {
                                   toggleWebhook(`${item.name} ${category}`)
                                 }}
                                 key={category}
-                                className="group flex cursor-pointer items-center rounded-md px-2 py-2 pl-6 text-xs  font-medium text-gray-300 transition-all hover:bg-slate-700 hover:text-white"
+                                className={`${currentType == `${item.name} ${category}` ? "bg-slate-700 hover:bg-slate-700" : "bg-transparent"} group flex cursor-pointer items-center rounded-md px-2 py-2 pl-6 text-xs font-medium text-gray-300 transition-all hover:bg-slate-700 hover:text-white`}
                               >
                                 <PaperClipIcon
                                   className={classNames(
@@ -541,8 +586,9 @@ export default function Sidebar({ updateType }) {
                             )
                           }
                           if (typeof category === 'object') {
-                            const label = Object.keys(category)
+                            const label = Object.keys(category)[0]
                             const values = category[label]
+                            const isEnabled = enabledCategories.includes(label)
                             const data = values.map((value) => {
                               return (
                                 <div
@@ -552,7 +598,7 @@ export default function Sidebar({ updateType }) {
                                     )
                                   }}
                                   key={value}
-                                  className="group flex cursor-pointer items-center rounded-md px-2 py-2 pl-12 text-xs font-medium  text-gray-300 transition-all transition-all hover:bg-slate-700 hover:text-white"
+                                  className={`${currentType == `${item.name} ${label} ${value}` ? "bg-slate-700 hover:bg-slate-700" : "bg-transparent"} group flex cursor-pointer items-center rounded-md px-2 py-2 pl-12 text-xs font-medium  text-gray-300 transition-all transition-all hover:bg-slate-700 hover:text-white`}
                                 >
                                   <PaperClipIcon
                                     className={classNames(
@@ -568,12 +614,13 @@ export default function Sidebar({ updateType }) {
                               )
                             })
                             return (
-                              <>
+                              <div>
                                 <div
                                   key={label}
-                                  className={classNames(
-                                    'group flex cursor-pointer items-center rounded-md px-2 py-2 pl-6 text-sm font-medium text-gray-300 hover:bg-slate-700 hover:text-white'
-                                  )}
+                                  onClick={()=>{
+                                    updateActiveCategories(label)
+                                  }}
+                                  className={`group flex cursor-pointer items-center rounded-md px-2 py-2 pl-6 text-sm font-medium text-gray-300 hover:bg-slate-700 hover:text-white`}                                 
                                 >
                                   <item.icon
                                     className={classNames(
@@ -583,8 +630,8 @@ export default function Sidebar({ updateType }) {
                                   />
                                   {label}
                                 </div>
-                                {data}
-                              </>
+                                {isEnabled && data}
+                              </div>
                             )
                           }
                         })}
@@ -597,7 +644,7 @@ export default function Sidebar({ updateType }) {
           </div>
         </div>
         <div className="flex flex-col md:pl-64">
-          <div className="sticky top-0 z-10 flex h-16 w-max flex-shrink-0 bg-transparent shadow">
+          <div className="sticky md:hidden top-0 z-10 flex h-16 w-max flex-shrink-0 bg-transparent shadow">
             <button
               type="button"
               className="border-r border-gray-200 px-4 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 md:hidden"

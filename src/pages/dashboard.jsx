@@ -8,9 +8,10 @@ import Head from 'next/head'
 import React, { useState } from 'react'
 import dynamic from 'next/dynamic'
 import Sidebar from '@/components/Sidebar'
+import Settings from '@/components/Settings'
 
 function Dashboard({ user }) {
-  const [currentType, setType] = useState('Shopify')
+  const [currentType, setType] = useState('')
 
   const updateType = (type) => {
     setType(type)
@@ -29,9 +30,10 @@ function Dashboard({ user }) {
 
       <main className="flex flex-col bg-slate-900">
         <DashHeader user={user}></DashHeader>
-        <Sidebar updateType={updateType}></Sidebar>
+        <Sidebar updateType={updateType} currentType={currentType}></Sidebar>
         <div className="flex w-full items-center justify-center">
-          {currentType && <WebhookSlot type={currentType}></WebhookSlot>}
+          {currentType && currentType != "Settings" && <WebhookSlot type={currentType}></WebhookSlot>}
+          {currentType && currentType == "Settings" && <Settings/>}
         </div>
       </main>
     </div>

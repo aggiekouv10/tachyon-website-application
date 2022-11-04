@@ -1,6 +1,6 @@
 export default function WebhookSlot({ type }) {
   return (
-    <div className="mt-12 w-full rounded-lg border border-slate-400 shadow sm:rounded-lg md:w-[64rem] md:min-w-[32rem]">
+    <div className="w-full md:ml-[20rem] md:mt-0 mt-6 mt:px-0 mx-6 rounded-lg border border-slate-400 shadow sm:rounded-lg md:w-[40rem] 2xl:w-[64rem] md:min-w-[32rem]">
       <div className="rounded-lg border-b border-gray-200 bg-slate-800 px-4 py-5 sm:px-6">
         <h3 className="text-lg font-medium leading-6 text-white">
           Webhook Editor

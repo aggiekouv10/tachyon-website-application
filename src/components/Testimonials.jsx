@@ -6,6 +6,7 @@ import avatarImage2 from '@/images/avatars/avatar-2.png'
 import avatarImage3 from '@/images/avatars/avatar-3.png'
 import avatarImage4 from '@/images/avatars/avatar-4.png'
 import avatarImage5 from '@/images/avatars/avatar-5.png'
+import { CheckBadgeIcon, StarIcon } from '@heroicons/react/24/solid'
 
 const testimonials = [
   [
@@ -33,7 +34,7 @@ const testimonials = [
   [
     {
       content:
-        'Our users have been able to reap success for months without any problems, never stopping.',
+        'Our users have been able to reap success for months without any problem and we do not intend on stopping.',
       author: {
         name: 'Droplet',
         role: 'Founder of West Inc',
@@ -77,29 +78,27 @@ export function Testimonials() {
               <ul role="list" className="flex flex-col gap-y-6 sm:gap-y-8">
                 {column.map((testimonial, testimonialIndex) => (
                   <li key={testimonialIndex}>
-                    <figure className="relative rounded-2xl bg-[#53b3e9] p-6 shadow-xl shadow-slate-900/10">
+                    <figure className="relative rounded-2xl p-6  shadow-xl shadow-slate-900/10 backdrop-blur-xl">
                       <blockquote className="relative">
-                        <p className="text-lg tracking-tight text-slate-100">
+                        <p className="text-lg tracking-tight text-blue-200">
                           {testimonial.content}
                         </p>
                       </blockquote>
                       <figcaption className="relative mt-6 flex items-center justify-between border-t border-slate-100 pt-6">
                         <div>
-                          <div className="font-display text-base text-slate-100">
+                          <div className="font-display text-base font-bold text-slate-100">
                             {testimonial.author.name}
                           </div>
-                          <div className="mt-1 text-sm text-slate-200">
+                          <div className="mt-1 text-sm font-semibold text-slate-200">
                             {testimonial.author.role}
                           </div>
                         </div>
-                        <div className="overflow-hidden rounded-full bg-slate-50">
-                          <Image
-                            className="h-14 w-14 object-cover"
-                            src={testimonial.author.image}
-                            alt=""
-                            width={56}
-                            height={56}
-                          />
+                        <div className="flex gap-1 overflow-hidden rounded-full">
+                          <StarIcon className="h-4 w-4 text-yellow-600"></StarIcon>
+                          <StarIcon className="h-4 w-4 text-yellow-600"></StarIcon>
+                          <StarIcon className="h-4 w-4 text-yellow-600"></StarIcon>
+                          <StarIcon className="h-4 w-4 text-yellow-600"></StarIcon>
+                          <StarIcon className="h-4 w-4 text-yellow-600"></StarIcon>
                         </div>
                       </figcaption>
                     </figure>

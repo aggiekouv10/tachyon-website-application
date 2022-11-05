@@ -25,7 +25,7 @@ export function Hero() {
           </svg>
           <span className="relative">made simple</span>
         </span>{' '}
-        for all kinds of groups.
+        at the speed of light.
       </h1>
       <p className="mx-auto mt-6 max-w-2xl text-lg tracking-tight text-slate-200">
         Most monitors are fast, but not that fast. With us, get more by paying

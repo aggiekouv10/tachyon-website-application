@@ -93,7 +93,7 @@ export function DashHeader({ user }) {
       <Container>
         <nav className="relative z-50 flex justify-between">
           <div className="flex items-center ">
-            <Link href="#" aria-label="Home">
+            <Link href="/" aria-label="Home">
               <Logo className="mr-12 h-8 w-auto animate-spin-slow" />
             </Link>
             <div className="hidden md:flex md:gap-x-6"></div>

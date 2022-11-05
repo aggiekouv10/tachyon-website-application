@@ -5,7 +5,7 @@ import {
 } from '@heroicons/react/24/outline'
 import { useState } from 'react'
 
-export default function Settings({ group }) {
+export default function Settings({ group, setGroup }) {
   const [color, setColor] = useState(group.embed.color || '')
   const [image, setImage] = useState(group.embed.image || '')
   const [footer, setFooter] = useState(group.embed.footer || '')
@@ -37,6 +37,7 @@ export default function Settings({ group }) {
       const data = await res.json()
 
       if (data.success) {
+        setGroup(data.group)
         setSuccess('Successfully updated embed settings.')
         setError('')
       } else {

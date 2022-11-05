@@ -19,7 +19,16 @@ const updateEmbedSettings = async (req, res) => {
         new: true,
       }
     )
-    res.status(200).json({ group: updatedGroup, success: true })
+
+    const [groupId, name, newImage, embed] = [
+      updatedGroup._id.toString(),
+      updatedGroup.name,
+      updatedGroup.image,
+      updatedGroup.embed,
+    ]
+    res
+      .status(200)
+      .json({ group: { groupId, name, image: newImage, embed }, success: true })
   } catch (error) {
     res.status(400).json({ message: error.message, success: false })
   }

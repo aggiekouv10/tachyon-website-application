@@ -14,6 +14,7 @@ import { parseWebhooks } from '@/utils/parse-webhooks'
 
 function Dashboard({ user, group, webhooks }) {
   const [currentWebhooks, setWebhooks] = useState(webhooks)
+  const [currentGroup, setGroup] = useState(group)
   const [currentType, setType] = useState('')
 
   const updateType = (type) => {
@@ -48,7 +49,7 @@ function Dashboard({ user, group, webhooks }) {
             ></WebhookSlot>
           )}
           {currentType && currentType == 'Settings' && (
-            <Settings group={group} />
+            <Settings setGroup={setGroup} group={currentGroup} />
           )}
         </div>
       </main>

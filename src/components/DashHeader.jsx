@@ -89,12 +89,12 @@ function MobileNavigation() {
 
 export function DashHeader({ user }) {
   return (
-    <header className="bg-slate-900 py-10 z-0">
+    <header className="z-0 bg-slate-900 py-10">
       <Container>
         <nav className="relative z-50 flex justify-between">
           <div className="flex items-center ">
             <Link href="#" aria-label="Home">
-              <Logo className="mr-12 h-14 w-auto" />
+              <Logo className="mr-12 h-8 w-auto animate-spin-slow" />
             </Link>
             <div className="hidden md:flex md:gap-x-6"></div>
           </div>
@@ -103,7 +103,7 @@ export function DashHeader({ user }) {
             <div className="flex flex-col items-center justify-center md:block">
               <div className="flex items-center gap-2 gap-y-0">
                 <img
-                  className="h-8 w-8 rounded-full"
+                  className="h-6 w-6 rounded-full"
                   alt="avatar"
                   src={`https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}`}
                 ></img>

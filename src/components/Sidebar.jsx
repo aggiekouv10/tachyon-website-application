@@ -33,7 +33,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Sidebar({ updateType, currentType }) {
+export default function Sidebar({ updateType, currentType, group }) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   const [navigation, setNavigation] = useState([
@@ -299,7 +299,6 @@ export default function Sidebar({ updateType, currentType }) {
   }
 
   const toggleWebhook = (name) => {
-    console.log(name)
     updateType(name)
   }
 
@@ -388,8 +387,8 @@ export default function Sidebar({ updateType, currentType }) {
                     </div>
                   </Transition.Child>
                   <h3 className="mx-auto flex select-none items-center justify-center gap-2 rounded-lg bg-slate-900 p-4 text-lg font-medium leading-6 text-white">
-                    <InboxIcon className="h-6 w-6 text-slate-400"></InboxIcon>
-                    Webhook Folders
+                    <img src={group.image} className="h-8 w-8" />
+                    {group.name}
                   </h3>
                   <nav className="mt-4 flex-1 select-none space-y-1 px-2 py-4">
                     <div
@@ -539,9 +538,9 @@ export default function Sidebar({ updateType, currentType }) {
           {/* Sidebar component, swap this element with another sidebar if you like */}
           <div className="flex min-h-0 flex-1 flex-col bg-slate-800">
             <div className="scrollbar-hide mt-8 flex flex-1 flex-col overflow-y-auto">
-              <h3 className="mx-auto flex select-none items-center justify-center gap-2 rounded-lg bg-slate-900 p-4 text-lg font-medium leading-6 text-white">
-                <InboxIcon className="h-6 w-6 text-slate-400"></InboxIcon>
-                Webhook Folders
+              <h3 className="text-md mx-auto flex select-none items-center justify-center gap-2 rounded-lg bg-slate-900 p-4 font-medium leading-6 text-white">
+                <img src={group.image} className="h-8 w-8" />
+                {group.name}
               </h3>
               <nav className="mt-4 flex-1 select-none space-y-1 px-2 py-4">
                 <div

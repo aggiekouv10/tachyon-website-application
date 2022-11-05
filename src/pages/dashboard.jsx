@@ -9,8 +9,11 @@ import React, { useState } from 'react'
 import dynamic from 'next/dynamic'
 import Sidebar from '@/components/Sidebar'
 import Settings from '@/components/Settings'
+import { parseGroup } from '@/utils/parse-group'
+import { parseWebhooks } from '@/utils/parse-webhooks'
 
-function Dashboard({ user }) {
+function Dashboard({ user, group, webhooks }) {
+  const [currentWebhooks, setWebhooks] = useState(webhooks)
   const [currentType, setType] = useState('')
 
   const updateType = (type) => {
@@ -30,10 +33,23 @@ function Dashboard({ user }) {
 
       <main className="flex flex-col bg-slate-900">
         <DashHeader user={user}></DashHeader>
-        <Sidebar updateType={updateType} currentType={currentType}></Sidebar>
+        <Sidebar
+          group={group}
+          updateType={updateType}
+          currentType={currentType}
+        ></Sidebar>
         <div className="flex w-full items-center justify-center">
-          {currentType && currentType != "Settings" && <WebhookSlot type={currentType}></WebhookSlot>}
-          {currentType && currentType == "Settings" && <Settings/>}
+          {currentType && currentType != 'Settings' && (
+            <WebhookSlot
+              group={group}
+              webhooks={currentWebhooks}
+              setWebhooks={setWebhooks}
+              type={currentType}
+            ></WebhookSlot>
+          )}
+          {currentType && currentType == 'Settings' && (
+            <Settings group={group} />
+          )}
         </div>
       </main>
     </div>
@@ -42,18 +58,21 @@ function Dashboard({ user }) {
 
 export const getServerSideProps = async function (ctx) {
   const user = await parseUser(ctx)
-
-  if (!user) {
+  const group = await parseGroup(ctx)
+  if (!group) {
     return {
       redirect: {
-        destination: '/',
+        destination: '/#pricing',
         permanent: false,
       },
     }
   }
+  const webhooks = await parseWebhooks(ctx, group.groupId)
   return {
     props: {
       user,
+      group,
+      webhooks,
     },
   }
 }

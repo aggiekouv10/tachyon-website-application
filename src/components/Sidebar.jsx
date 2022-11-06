@@ -413,77 +413,47 @@ export default function Sidebar({ updateType, currentType, group }) {
                     <hr className="border border-slate-700"></hr>
                     <div className="w-full pt-[0.1rem]"></div>
                     {navigation.map((item) => {
-                      ;<div key={item.name}>
-                        <div
-                          onClick={() => updateCurrent(item.name)}
-                          className={classNames(
-                            item.current
-                              ? 'bg-slate-900 text-white'
-                              : 'text-gray-300 hover:bg-slate-700 hover:text-white',
-                            'group flex cursor-pointer items-center rounded-md px-2 py-2 text-sm font-medium transition-all'
-                          )}
-                        >
-                          <item.icon
+                      if (!group.activeCategories.includes(item.name)) return
+                      return (
+                        <div key={item.name}>
+                          <div
+                            onClick={() => updateCurrent(item.name)}
                             className={classNames(
                               item.current
-                                ? 'text-gray-300'
-                                : 'text-gray-400 group-hover:text-gray-300',
-                              'mr-4 h-5 w-5 flex-shrink-0'
+                                ? 'bg-slate-900 text-white'
+                                : 'text-gray-300 hover:bg-slate-700 hover:text-white',
+                              'group flex cursor-pointer items-center rounded-md px-2 py-2 text-sm font-medium transition-all'
                             )}
-                            aria-hidden="true"
-                          />
-                          {item.name}
-                        </div>
-                        {item.current && (
-                          <div className="flex flex-col">
-                            {item.categories.map((category) => {
-                              if (typeof category === 'string') {
-                                return (
-                                  <div
-                                    onClick={() => {
-                                      toggleWebhook(`${item.name} ${category}`)
-                                    }}
-                                    key={category}
-                                    className={`${
-                                      currentType == `${item.name} ${category}`
-                                        ? 'bg-slate-700 hover:bg-slate-700'
-                                        : 'bg-transparent'
-                                    } group flex cursor-pointer items-center rounded-md px-2 py-2 pl-6 text-xs font-medium text-gray-300 transition-all hover:bg-slate-700 hover:text-white`}
-                                  >
-                                    <PaperClipIcon
-                                      className={classNames(
-                                        item.current
-                                          ? 'text-gray-300'
-                                          : 'text-gray-400 group-hover:text-gray-300',
-                                        'mr-4 h-4 w-4 flex-shrink-0'
-                                      )}
-                                      aria-hidden="true"
-                                    />
-                                    {category}
-                                  </div>
-                                )
-                              }
-                              if (typeof category === 'object') {
-                                const label = Object.keys(category)[0]
-                                console.log(group.activeCategories, label)
-                                const values = category[label]
-                                const isEnabled =
-                                  enabledCategories.includes(label)
-                                const data = values.map((value) => {
+                          >
+                            <item.icon
+                              className={classNames(
+                                item.current
+                                  ? 'text-gray-300'
+                                  : 'text-gray-400 group-hover:text-gray-300',
+                                'mr-4 h-5 w-5 flex-shrink-0'
+                              )}
+                              aria-hidden="true"
+                            />
+                            {item.name}
+                          </div>
+                          {item.current && (
+                            <div className="flex flex-col">
+                              {item.categories.map((category) => {
+                                if (typeof category === 'string') {
                                   return (
                                     <div
                                       onClick={() => {
                                         toggleWebhook(
-                                          `${item.name} ${label} ${value}`
+                                          `${item.name} ${category}`
                                         )
                                       }}
-                                      key={value}
+                                      key={category}
                                       className={`${
                                         currentType ==
-                                        `${item.name} ${label} ${value}`
+                                        `${item.name} ${category}`
                                           ? 'bg-slate-700 hover:bg-slate-700'
                                           : 'bg-transparent'
-                                      } group flex cursor-pointer items-center rounded-md px-2 py-2 pl-12 text-xs font-medium  text-gray-300 transition-all transition-all hover:bg-slate-700 hover:text-white`}
+                                      } group flex cursor-pointer items-center rounded-md px-2 py-2 pl-6 text-xs font-medium text-gray-300 transition-all hover:bg-slate-700 hover:text-white`}
                                     >
                                       <PaperClipIcon
                                         className={classNames(
@@ -494,35 +464,70 @@ export default function Sidebar({ updateType, currentType, group }) {
                                         )}
                                         aria-hidden="true"
                                       />
-                                      {value}
+                                      {category}
                                     </div>
                                   )
-                                })
-                                return (
-                                  <div>
-                                    <div
-                                      key={label}
-                                      onClick={() => {
-                                        updateActiveCategories(label)
-                                      }}
-                                      className={`group flex cursor-pointer items-center rounded-md px-2 py-2 pl-6 text-sm font-medium text-gray-300 hover:bg-slate-700 hover:text-white`}
-                                    >
-                                      <item.icon
-                                        className={classNames(
-                                          'mr-4 h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-300'
-                                        )}
-                                        aria-hidden="true"
-                                      />
-                                      {label}
+                                }
+                                if (typeof category === 'object') {
+                                  const label = Object.keys(category)[0]
+                                  const values = category[label]
+                                  const isEnabled =
+                                    enabledCategories.includes(label)
+                                  const data = values.map((value) => {
+                                    return (
+                                      <div
+                                        onClick={() => {
+                                          toggleWebhook(
+                                            `${item.name} ${label} ${value}`
+                                          )
+                                        }}
+                                        key={value}
+                                        className={`${
+                                          currentType ==
+                                          `${item.name} ${label} ${value}`
+                                            ? 'bg-slate-700 hover:bg-slate-700'
+                                            : 'bg-transparent'
+                                        } group flex cursor-pointer items-center rounded-md px-2 py-2 pl-12 text-xs font-medium  text-gray-300 transition-all transition-all hover:bg-slate-700 hover:text-white`}
+                                      >
+                                        <PaperClipIcon
+                                          className={classNames(
+                                            item.current
+                                              ? 'text-gray-300'
+                                              : 'text-gray-400 group-hover:text-gray-300',
+                                            'mr-4 h-4 w-4 flex-shrink-0'
+                                          )}
+                                          aria-hidden="true"
+                                        />
+                                        {value}
+                                      </div>
+                                    )
+                                  })
+                                  return (
+                                    <div>
+                                      <div
+                                        key={label}
+                                        onClick={() => {
+                                          updateActiveCategories(label)
+                                        }}
+                                        className={`group flex cursor-pointer items-center rounded-md px-2 py-2 pl-6 text-sm font-medium text-gray-300 hover:bg-slate-700 hover:text-white`}
+                                      >
+                                        <item.icon
+                                          className={classNames(
+                                            'mr-4 h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-300'
+                                          )}
+                                          aria-hidden="true"
+                                        />
+                                        {label}
+                                      </div>
+                                      {isEnabled && data}
                                     </div>
-                                    {isEnabled && data}
-                                  </div>
-                                )
-                              }
-                            })}
-                          </div>
-                        )}
-                      </div>
+                                  )
+                                }
+                              })}
+                            </div>
+                          )}
+                        </div>
+                      )
                     })}
                   </nav>
                 </Dialog.Panel>

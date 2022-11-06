@@ -23,11 +23,6 @@ export default function WebhookSlot({ group, type, webhooks, setWebhooks }) {
     e.preventDefault()
 
     try {
-      if (webhook == '') {
-        setError("You can't leave any fields blank.")
-        setSuccess('')
-        return
-      }
       const res = await fetch('/api/save-webhook', {
         method: 'POST',
         headers: {

@@ -206,6 +206,7 @@ export default function Sidebar({ updateType, currentType, group }) {
         'SNS',
         'Sportschek',
         'Golftown',
+        'Shiekh',
       ],
       icon: FolderIcon,
       current: false,

@@ -6,7 +6,7 @@ const GroupSchema = new Schema(
   {
     name: String,
     embed: Object,
-    isActive: Boolean,
+    activeCategories: Array,
     image: String,
     admins: Array,
   },

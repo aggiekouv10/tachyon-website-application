@@ -17,14 +17,15 @@ export async function parseGroup(ctx) {
     const { id } = user
     await dbConnect()
     const data = await Group.findOne({ admins: id }).exec()
-    if (data === null || !data.isActive) return null
-    const [groupId, name, image, embed] = [
+    if (data === null || data.activeCategories.length === 0) return null
+    const [groupId, name, image, embed, activeCategories] = [
       data._id.toString(),
       data.name,
       data.image,
       data.embed,
+      data.activeCategories
     ]
-    return { groupId, name, image, embed }
+    return { groupId, name, image, embed, activeCategories }
   } catch (e) {
     console.log(e.message)
     return null

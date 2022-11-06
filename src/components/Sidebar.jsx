@@ -386,11 +386,11 @@ export default function Sidebar({ updateType, currentType, group }) {
                       </button>
                     </div>
                   </Transition.Child>
-                  <h3 className="mx-auto flex md:select-none items-center justify-center gap-2 rounded-lg bg-slate-900 p-4 text-lg font-medium leading-6 text-white">
+                  <h3 className="mx-auto flex items-center justify-center gap-2 rounded-lg bg-slate-900 p-4 text-lg font-medium leading-6 text-white md:select-none">
                     <img src={group.image} className="h-8 w-8" />
                     {group.name}
                   </h3>
-                  <nav className="mt-4 flex-1 md:select-none space-y-1 px-2 py-4">
+                  <nav className="mt-4 flex-1 space-y-1 px-2 py-4 md:select-none">
                     <div
                       onClick={() => enableSettings(!settingsEnabled)}
                       className={classNames(
@@ -412,8 +412,8 @@ export default function Sidebar({ updateType, currentType, group }) {
                     </div>
                     <hr className="border border-slate-700"></hr>
                     <div className="w-full pt-[0.1rem]"></div>
-                    {navigation.map((item) => (
-                      <div key={item.name}>
+                    {navigation.map((item) => {
+                      ;<div key={item.name}>
                         <div
                           onClick={() => updateCurrent(item.name)}
                           className={classNames(
@@ -465,6 +465,7 @@ export default function Sidebar({ updateType, currentType, group }) {
                               }
                               if (typeof category === 'object') {
                                 const label = Object.keys(category)[0]
+                                console.log(group.activeCategories, label)
                                 const values = category[label]
                                 const isEnabled =
                                   enabledCategories.includes(label)
@@ -522,7 +523,7 @@ export default function Sidebar({ updateType, currentType, group }) {
                           </div>
                         )}
                       </div>
-                    ))}
+                    })}
                   </nav>
                 </Dialog.Panel>
               </Transition.Child>
@@ -538,11 +539,11 @@ export default function Sidebar({ updateType, currentType, group }) {
           {/* Sidebar component, swap this element with another sidebar if you like */}
           <div className="flex min-h-0 flex-1 flex-col bg-slate-800">
             <div className="scrollbar-hide mt-8 flex flex-1 flex-col overflow-y-auto">
-              <h3 className="text-md mx-auto flex md:select-none items-center justify-center gap-2 rounded-lg bg-slate-900 p-4 font-medium leading-6 text-white">
+              <h3 className="text-md mx-auto flex items-center justify-center gap-2 rounded-lg bg-slate-900 p-4 font-medium leading-6 text-white md:select-none">
                 <img src={group.image} className="h-8 w-8" />
                 {group.name}
               </h3>
-              <nav className="mt-4 flex-1 md:select-none space-y-1 px-2 py-4">
+              <nav className="mt-4 flex-1 space-y-1 px-2 py-4 md:select-none">
                 <div
                   onClick={() => enableSettings(!settingsEnabled)}
                   className={classNames(
@@ -564,76 +565,45 @@ export default function Sidebar({ updateType, currentType, group }) {
                 </div>
                 <hr className="border border-slate-700"></hr>
                 <div className="w-full pt-[0.1rem]"></div>
-                {navigation.map((item) => (
-                  <div key={item.name}>
-                    <div
-                      onClick={() => updateCurrent(item.name)}
-                      className={classNames(
-                        item.current
-                          ? 'bg-slate-900 text-white'
-                          : 'text-gray-300 hover:bg-slate-700 hover:text-white',
-                        'group flex cursor-pointer items-center rounded-md px-2 py-2 text-sm font-medium transition-all'
-                      )}
-                    >
-                      <item.icon
+                {navigation.map((item) => {
+                  if (!group.activeCategories.includes(item.name)) return
+                  return (
+                    <div key={item.name}>
+                      <div
+                        onClick={() => updateCurrent(item.name)}
                         className={classNames(
                           item.current
-                            ? 'text-gray-300'
-                            : 'text-gray-400 group-hover:text-gray-300',
-                          'mr-4 h-5 w-5 flex-shrink-0'
+                            ? 'bg-slate-900 text-white'
+                            : 'text-gray-300 hover:bg-slate-700 hover:text-white',
+                          'group flex cursor-pointer items-center rounded-md px-2 py-2 text-sm font-medium transition-all'
                         )}
-                        aria-hidden="true"
-                      />
-                      {item.name}
-                    </div>
-                    {item.current && (
-                      <div className="flex flex-col">
-                        {item.categories.map((category) => {
-                          if (typeof category === 'string') {
-                            return (
-                              <div
-                                onClick={() => {
-                                  toggleWebhook(`${item.name} ${category}`)
-                                }}
-                                key={category}
-                                className={`${
-                                  currentType == `${item.name} ${category}`
-                                    ? 'bg-slate-700 hover:bg-slate-700'
-                                    : 'bg-transparent'
-                                } group flex cursor-pointer items-center rounded-md px-2 py-2 pl-6 text-xs font-medium text-gray-300 transition-all hover:bg-slate-700 hover:text-white`}
-                              >
-                                <PaperClipIcon
-                                  className={classNames(
-                                    item.current
-                                      ? 'text-gray-300'
-                                      : 'text-gray-400 group-hover:text-gray-300',
-                                    'mr-4 h-4 w-4 flex-shrink-0'
-                                  )}
-                                  aria-hidden="true"
-                                />
-                                {category}
-                              </div>
-                            )
-                          }
-                          if (typeof category === 'object') {
-                            const label = Object.keys(category)[0]
-                            const values = category[label]
-                            const isEnabled = enabledCategories.includes(label)
-                            const data = values.map((value) => {
+                      >
+                        <item.icon
+                          className={classNames(
+                            item.current
+                              ? 'text-gray-300'
+                              : 'text-gray-400 group-hover:text-gray-300',
+                            'mr-4 h-5 w-5 flex-shrink-0'
+                          )}
+                          aria-hidden="true"
+                        />
+                        {item.name}
+                      </div>
+                      {item.current && (
+                        <div className="flex flex-col">
+                          {item.categories.map((category) => {
+                            if (typeof category === 'string') {
                               return (
                                 <div
                                   onClick={() => {
-                                    toggleWebhook(
-                                      `${item.name} ${label} ${value}`
-                                    )
+                                    toggleWebhook(`${item.name} ${category}`)
                                   }}
-                                  key={value}
+                                  key={category}
                                   className={`${
-                                    currentType ==
-                                    `${item.name} ${label} ${value}`
+                                    currentType == `${item.name} ${category}`
                                       ? 'bg-slate-700 hover:bg-slate-700'
                                       : 'bg-transparent'
-                                  } group flex cursor-pointer items-center rounded-md px-2 py-2 pl-12 text-xs font-medium  text-gray-300 transition-all transition-all hover:bg-slate-700 hover:text-white`}
+                                  } group flex cursor-pointer items-center rounded-md px-2 py-2 pl-6 text-xs font-medium text-gray-300 transition-all hover:bg-slate-700 hover:text-white`}
                                 >
                                   <PaperClipIcon
                                     className={classNames(
@@ -644,36 +614,71 @@ export default function Sidebar({ updateType, currentType, group }) {
                                     )}
                                     aria-hidden="true"
                                   />
-                                  {value}
+                                  {category}
                                 </div>
                               )
-                            })
-                            return (
-                              <div>
-                                <div
-                                  key={label}
-                                  onClick={() => {
-                                    updateActiveCategories(label)
-                                  }}
-                                  className={`group flex cursor-pointer items-center rounded-md px-2 py-2 pl-6 text-sm font-medium text-gray-300 hover:bg-slate-700 hover:text-white`}
-                                >
-                                  <item.icon
-                                    className={classNames(
-                                      'mr-4 h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-300'
-                                    )}
-                                    aria-hidden="true"
-                                  />
-                                  {label}
+                            }
+                            if (typeof category === 'object') {
+                              const label = Object.keys(category)[0]
+                              const values = category[label]
+                              const isEnabled =
+                                enabledCategories.includes(label)
+                              const data = values.map((value) => {
+                                return (
+                                  <div
+                                    onClick={() => {
+                                      toggleWebhook(
+                                        `${item.name} ${label} ${value}`
+                                      )
+                                    }}
+                                    key={value}
+                                    className={`${
+                                      currentType ==
+                                      `${item.name} ${label} ${value}`
+                                        ? 'bg-slate-700 hover:bg-slate-700'
+                                        : 'bg-transparent'
+                                    } group flex cursor-pointer items-center rounded-md px-2 py-2 pl-12 text-xs font-medium  text-gray-300 transition-all transition-all hover:bg-slate-700 hover:text-white`}
+                                  >
+                                    <PaperClipIcon
+                                      className={classNames(
+                                        item.current
+                                          ? 'text-gray-300'
+                                          : 'text-gray-400 group-hover:text-gray-300',
+                                        'mr-4 h-4 w-4 flex-shrink-0'
+                                      )}
+                                      aria-hidden="true"
+                                    />
+                                    {value}
+                                  </div>
+                                )
+                              })
+                              return (
+                                <div>
+                                  <div
+                                    key={label}
+                                    onClick={() => {
+                                      updateActiveCategories(label)
+                                    }}
+                                    className={`group flex cursor-pointer items-center rounded-md px-2 py-2 pl-6 text-sm font-medium text-gray-300 hover:bg-slate-700 hover:text-white`}
+                                  >
+                                    <item.icon
+                                      className={classNames(
+                                        'mr-4 h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-300'
+                                      )}
+                                      aria-hidden="true"
+                                    />
+                                    {label}
+                                  </div>
+                                  {isEnabled && data}
                                 </div>
-                                {isEnabled && data}
-                              </div>
-                            )
-                          }
-                        })}
-                      </div>
-                    )}
-                  </div>
-                ))}
+                              )
+                            }
+                          })}
+                        </div>
+                      )}
+                    </div>
+                  )
+                })}
               </nav>
             </div>
           </div>

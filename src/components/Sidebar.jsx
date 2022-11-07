@@ -249,6 +249,7 @@ export default function Sidebar({ updateType, currentType, group }) {
         'Evga US',
         'Tesla',
         'Razer',
+        'BJS',
       ],
       icon: FolderIcon,
       current: false,

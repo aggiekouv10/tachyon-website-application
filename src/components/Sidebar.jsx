@@ -128,7 +128,7 @@ export default function Sidebar({ updateType, currentType, group }) {
         'Ycmc',
         'Funko',
         'Packer',
-        'Other',
+        'Slamjam',
       ],
       icon: FolderIcon,
       current: false,

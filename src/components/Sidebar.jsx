@@ -129,7 +129,11 @@ export default function Sidebar({ updateType, currentType, group }) {
         'Funko',
         'Packer',
         'Slamjam',
-        'Hats'
+        'Hats',
+        'Shoepalace',
+        'Canary Yellow',
+        'Cncpts'
+
       ],
       icon: FolderIcon,
       current: false,

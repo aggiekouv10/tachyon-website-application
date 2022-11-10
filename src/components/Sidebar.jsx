@@ -132,8 +132,7 @@ export default function Sidebar({ updateType, currentType, group }) {
         'Hats',
         'Shoepalace',
         'Canary Yellow',
-        'Cncpts'
-
+        'Cncpts',
       ],
       icon: FolderIcon,
       current: false,
@@ -219,6 +218,9 @@ export default function Sidebar({ updateType, currentType, group }) {
     {
       name: 'Retail',
       categories: [
+        {
+          Filtered: ['US', 'EU', 'CA'],
+        },
         {
           Walmart: ['US', 'CA'],
         },

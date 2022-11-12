@@ -181,7 +181,7 @@ export default function Sidebar({ updateType, currentType, group }) {
       name: 'AIO',
       categories: [
         {
-          Filtered: ['US', 'EU'],
+          Filtered: ['US', 'EU', 'CA'],
         },
         {
           Snipes: ['US', 'EU'],
@@ -211,6 +211,7 @@ export default function Sidebar({ updateType, currentType, group }) {
         'Sportschek',
         'Golftown',
         'Shiekh',
+        'Pro Direct'
       ],
       icon: FolderIcon,
       current: false,
@@ -292,6 +293,8 @@ export default function Sidebar({ updateType, currentType, group }) {
         'RU',
         'SG',
         'US',
+        'PH',
+        'MX'
       ],
       icon: FolderIcon,
       current: false,

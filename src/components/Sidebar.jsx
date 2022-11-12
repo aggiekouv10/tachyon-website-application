@@ -288,7 +288,6 @@ export default function Sidebar({ updateType, currentType, group }) {
         'MY',
         'NL',
         'NZ',
-        'PH',
         'PL',
         'RU',
         'SG',

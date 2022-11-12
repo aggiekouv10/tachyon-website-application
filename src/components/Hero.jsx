@@ -39,6 +39,7 @@ export function Hero() {
           Reach out to us now
         </Button>
       </div>
+      <img src="/Monitor.png" className="w-full mt-12 md:rounded-xl rounded-xs"></img>
     </Container>
   )
 }

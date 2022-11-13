@@ -65,8 +65,10 @@ export default function Sidebar({ updateType, currentType, group }) {
             'US',
           ],
         },
+        {
+          Champs: ['US', 'CA'],
+        },
         'Kids Footlocker',
-        'Champs',
         'Footaction',
       ],
       current: false,
@@ -211,7 +213,7 @@ export default function Sidebar({ updateType, currentType, group }) {
         'Sportschek',
         'Golftown',
         'Shiekh',
-        'Pro Direct'
+        'Pro Direct',
       ],
       icon: FolderIcon,
       current: false,
@@ -293,7 +295,7 @@ export default function Sidebar({ updateType, currentType, group }) {
         'SG',
         'US',
         'PH',
-        'MX'
+        'MX',
       ],
       icon: FolderIcon,
       current: false,

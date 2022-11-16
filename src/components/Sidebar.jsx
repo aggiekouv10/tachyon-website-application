@@ -104,7 +104,7 @@ export default function Sidebar({ updateType, currentType, group }) {
           Filtered: ['US', 'EU', 'CA'],
         },
         {
-          Unfiltered: ['US', 'EU', 'CA'],
+          Unfiltered: ['US', 'EU', 'CA', 'ALL'],
         },
         {
           Pings: ['Bots', 'Queue', 'Password', 'Checkpoint'],

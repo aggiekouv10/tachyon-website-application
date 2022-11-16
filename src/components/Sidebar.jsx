@@ -135,7 +135,7 @@ export default function Sidebar({ updateType, currentType, group }) {
         'Shoepalace',
         'Canary Yellow',
         'Cncpts',
-        'Bbbbanded',
+        'Bbbbranded',
         'Capsule',
         'JJJJound',
         'Deadstock',

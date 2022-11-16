@@ -135,7 +135,7 @@ export default function Sidebar({ updateType, currentType, group }) {
         'Shoepalace',
         'Canary Yellow',
         'Cncpts',
-        'Bbbbranded',
+        'Bbbranded',
         'Capsule',
         'JJJJound',
         'Deadstock',
@@ -143,7 +143,7 @@ export default function Sidebar({ updateType, currentType, group }) {
         'Size CA',
         'JD Sports CA',
         'Haven',
-        'Nomad'
+        'Nomad',
       ],
       icon: FolderIcon,
       current: false,
